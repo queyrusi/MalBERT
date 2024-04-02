@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.yeeld.app" platformBuildVersionCode="156" platformBuildVersionName="1.0.2">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-feature android:name="android.hardware.camera"/>
+    <uses-feature android:name="android.hardware.camera.autofocus"/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+    <uses-feature android:name="android.hardware.camera.front" android:required="false"/>
+    <uses-feature android:name="android.hardware.microphone" android:required="false"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:largeHeap="true" android:name="com.yeeld.app.MainApplication" android:supportsRtl="true" android:theme="@style/AppTheme">
+        <activity android:launchMode="singleTop" android:name="com.yeeld.app.ui.splash.SplashActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:launchMode="singleTop" android:name="com.yeeld.app.ui.camera.CameraActivity" android:screenOrientation="portrait"/>
+        <activity android:launchMode="singleTask" android:name="com.yeeld.app.ui.main.MainActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="yeeld" android:scheme="yeeld"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.yeeld.app.ui.localAuth.LocalAuthActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
+        <activity android:name="com.yeeld.app.ui.payout.PayoutActivity" android:screenOrientation="portrait"/>
+        <meta-data android:name="io.fabric.ApiKey" android:value="d9e25fb7bbdb3e6543c4feaab3bc14b43530bc12"/>
+        <service android:name="io.intercom.android.sdk.fcm.IntercomFcmMessengerService">
+            <intent-filter android:priority="-400">
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:launchMode="singleTop" android:name="io.intercom.android.sdk.activities.IntercomMessengerActivity" android:theme="@style/Intercom_PanelTheme" android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:name="io.intercom.android.sdk.lightbox.LightBoxActivity" android:theme="@style/Intercom_LightBoxTheme" android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+        <activity android:exported="false" android:launchMode="singleTop" android:name="io.intercom.android.sdk.activities.IntercomArticleActivity" android:theme="@style/Intercom_ModalActivityTheme" android:windowSoftInputMode="stateHidden"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:launchMode="singleTop" android:name="io.intercom.android.sdk.activities.IntercomHelpCenterActivity" android:theme="@style/Intercom_ModalActivityTheme" android:windowSoftInputMode="stateHidden"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:launchMode="singleTask" android:name="io.intercom.android.sdk.activities.IntercomPostActivity" android:theme="@style/Intercom_PostTheme" android:windowSoftInputMode="stateHidden"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:launchMode="singleTask" android:name="io.intercom.android.sdk.activities.IntercomNoteActivity" android:theme="@style/Intercom_NoteTheme" android:windowSoftInputMode="adjustResize|stateUnchanged"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:launchMode="singleTop" android:name="io.intercom.android.sdk.activities.IntercomSheetActivity" android:theme="@style/Intercom_ModalActivityTheme" android:windowSoftInputMode="stateHidden"/>
+        <activity android:configChanges="orientation|screenSize" android:exported="false" android:launchMode="singleTop" android:name="io.intercom.android.sdk.activities.IntercomVideoActivity" android:theme="@style/Intercom_PanelTheme" android:windowSoftInputMode="stateHidden"/>
+        <receiver android:exported="false" android:name="io.intercom.android.sdk.push.IntercomPushBroadcastReceiver">
+            <intent-filter>
+                <action android:name="io.intercom.android.sdk.INTERCOM_PUSH_OPENED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="io.intercom.android.sdk.INTERCOM_PUSH_DISMISSED"/>
+            </intent-filter>
+        </receiver>
+        <provider android:authorities="com.yeeld.app.IntercomInitializeContentProvider" android:exported="false" android:name="io.intercom.android.sdk.IntercomInitializeContentProvider"/>
+        <provider android:authorities="com.yeeld.app.lifecycle-trojan" android:exported="false" android:multiprocess="true" android:name="android.arch.lifecycle.ProcessLifecycleOwnerInitializer"/>
+        <provider android:authorities="com.yeeld.app.crashlyticsinitprovider" android:exported="false" android:initOrder="90" android:name="com.crashlytics.android.CrashlyticsInitProvider"/>
+        <service android:exported="true" android:name="com.google.firebase.messaging.FirebaseMessagingService">
+            <intent-filter android:priority="-500">
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <provider android:authorities="com.yeeld.app.com.squareup.picasso" android:exported="false" android:name="com.squareup.picasso.PicassoProvider"/>
+        <service android:exported="false" android:name="com.google.firebase.components.ComponentDiscoveryService">
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.iid.Registrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+        </service>
+        <receiver android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementReceiver"/>
+        <receiver android:enabled="true" android:exported="true" android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver" android:permission="android.permission.INSTALL_PACKAGES">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementService"/>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <receiver android:exported="true" android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+            </intent-filter>
+        </receiver>
+        <service android:exported="true" android:name="com.google.firebase.iid.FirebaseInstanceIdService">
+            <intent-filter android:priority="-500">
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <provider android:authorities="com.yeeld.app.firebaseinitprovider" android:exported="false" android:initOrder="100" android:name="com.google.firebase.provider.FirebaseInitProvider"/>
+        <activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+        <activity android:name="com.intercom.input.gallery.GalleryInputFullScreenActivity" android:theme="@style/intercom_composer_full_screen_theme"/>
+        <activity android:configChanges="density|orientation|screenLayout|screenSize" android:name="com.intercom.input.gallery.GalleryLightBoxActivity" android:theme="@style/intercom_composer_full_screen_theme"/>
+        <meta-data android:name="com.android.vending.derived.apk.id" android:value="1"/>
+    </application>
+</manifest>
