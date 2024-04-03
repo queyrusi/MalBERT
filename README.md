@@ -24,6 +24,17 @@ sh fetch_manifests.sh
 python preprocessing.py
 ````
 
+### Special script for chasseral-22
+**chasseral-22** has the disk mounted on it with individual folders containing the APKs. 
+`get_manifests_from_disk.sh` is meant to be run on the machine that has the mount. It finds benign and malware APKs from the two argument folders, decompresses them inside the third argument and stores the manifests inside the fourth (equivalent of step 2 to 4):
+
+```bash
+sh get_manifests_from_disk.sh "/mnt/mydisk/dataset-D0/d0_benign_store" \
+                              "/mnt/mydisk/dataset-D0/d0_malicious_store" \
+                              "data/decompressed_apks/D0" \
+                              "data/manifests/D0"
+```
+
 ## Training
 Run the `train.py` script to train the MalBERT model (uses Longformer).
 ```python
