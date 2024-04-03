@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:compileSdkVersion="28" android:compileSdkVersionCodename="9" package="com.actus.plusdebonsplans" platformBuildVersionCode="22" platformBuildVersionName="2.2">
+    <permission android:name="com.actus.plusdebonsplans.permission.C2D_MESSAGE" android:protectionLevel="signature"/>
+    <uses-permission android:name="com.actus.plusdebonsplans.permission.C2D_MESSAGE"/>
+    <uses-feature android:glEsVersion="0x00020000" android:required="true"/>
+    <uses-feature android:name="android.hardware.telephony" android:required="false"/>
+    <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
+    <uses-feature android:name="android.hardware.location.network" android:required="false"/>
+    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-feature android:name="android.hardware.wifi" android:required="false"/>
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <application android:allowBackup="false" android:icon="@drawable/icon" android:label="@string/app_name" android:largeHeap="true" android:name="com.goodbarber.v2.GBApplication" android:supportsRtl="false" android:theme="@style/AppTheme" android:usesCleartextTraffic="true">
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:label="@string/app_name" android:name="com.goodbarber.v2.core.common.activities.SplashscreenActivity" android:screenOrientation="portrait" android:theme="@style/AppThemeTranslucent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:scheme="@string/deep_link_custom_scheme"/>
+            </intent-filter>
+        </activity>
+        <uses-library android:name="com.google.android.maps"/>
+        <uses-library android:name="org.apache.http.legacy" android:required="false"/>
+        <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
+        <receiver android:enabled="true" android:exported="true" android:name="com.google.android.gms.analytics.CampaignTrackingReceiver">
+            <intent-filter>
+                <action android:name="com.android.vending.INSTALL_REFERRER"/>
+            </intent-filter>
+        </receiver>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.analytics.CampaignTrackingService"/>
+        <receiver android:exported="true" android:name="com.google.android.gms.gcm.GcmReceiver" android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION"/>
+                <category android:name="com.actus.plusdebonsplans"/>
+            </intent-filter>
+        </receiver>
+        <service android:exported="false" android:name="com.goodbarber.v2.GCMIntentService">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
+            </intent-filter>
+        </service>
+        <service android:exported="false" android:name="com.goodbarber.v2.GCMRefreshService">
+            <intent-filter>
+                <action android:name="com.google.android.gms.iid.InstanceID"/>
+            </intent-filter>
+        </service>
+        <service android:exported="false" android:name="com.goodbarber.v2.GCMRegistrationService"/>
+        <meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="@string/maps_api_key"/>
+        <activity android:name="com.goodbarber.v2.core.bookmarks.activities.BookmarkDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.searchv4.activities.SearchDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.roots.activities.TabBarRootBrowsingActivity" android:screenOrientation="portrait" android:windowSoftInputMode="adjustPan"/>
+        <activity android:name="com.goodbarber.v2.core.articles.detail.activities.ArticleDetailClassicActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.articles.detail.activities.ArticleDetailToolbarUpActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.articles.detail.activities.ArticleDetailToolbarSwipeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.articles.detail.activities.ArticleDetailToolbarAndroidActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.chat.detail.activities.ChatDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.videos.detail.activities.VideoDetailClassicActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.videos.detail.activities.VideoDetailToolbarSwipeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.videos.detail.activities.VideoDetailToolbarAndroidActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.videos.detail.activities.VideoDetailToolbarUpActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.photos.detail.activities.PhotoDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.common.activities.OpenPhotoGalleryActivity" android:screenOrientation="fullSensor" android:theme="@style/Transparent"/>
+        <activity android:name="com.goodbarber.v2.core.twitter.detail.activities.TweetDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.users.profile.activities.ProfileListSettingsClassicActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.users.profile.activities.ProfileListEditActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.users.profile.activities.ProfilPublicDetailActivity" android:screenOrientation="portrait"/>
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/app_id_facebook"/>
+        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize" android:label="@string/app_name" android:name="com.facebook.FacebookActivity" android:theme="@style/com_facebook_activity_theme"/>
+        <activity android:name="com.goodbarber.v2.core.submit.detail.activities.SubmitDetailClassicActivity" android:screenOrientation="portrait"/>
+        <activity android:allowTaskReparenting="true" android:launchMode="singleTask" android:name="com.goodbarber.v2.core.common.activities.LoginTwitterActivity" android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <data android:host="callback" android:scheme="goodbarberv2-oauth-twitter"/>
+            </intent-filter>
+        </activity>
+        <activity android:name="com.goodbarber.v2.core.loyalty.punch.activities.LoyaltyQRCodeReaderActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.couponing.details.activities.CouponingDetailsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.couponing.favorites.activities.CouponingFavoritesSavedActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.couponing.historical.activities.CouponingHistoricalActivity" android:screenOrientation="portrait"/>
+        <activity android:hardwareAccelerated="false" android:name="com.goodbarber.v2.core.sounds.detail.activities.SoundPodcastDetailToolbarUpActivity" android:screenOrientation="portrait"/>
+        <activity android:hardwareAccelerated="false" android:name="com.goodbarber.v2.core.sounds.detail.activities.SoundPodcastDetailToolbarAndroidActivity" android:screenOrientation="portrait"/>
+        <activity android:hardwareAccelerated="false" android:name="com.goodbarber.v2.core.sounds.detail.activities.SoundPodcastDetailToolbarSwipeActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.events.detail.activities.EventDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.maps.detail.activities.MapsDetailClassicActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.settings.activities.SettingsDetailClassicActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="orientation|screenSize" android:name="com.goodbarber.v2.core.common.activities.VideoPlayerActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:hardwareAccelerated="true" android:name="com.goodbarber.v2.core.common.activities.DailymotionVideoPlayerActivity"/>
+        <activity android:configChanges="orientation|screenSize" android:name="com.goodbarber.v2.core.common.activities.HTML5VideoFullScreenActivity"/>
+        <activity android:name="com.goodbarber.v2.core.comments.standard.activities.CommentListActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.chat.search.activities.ChatNewMessageActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.comments.standard.activities.CommentPostActivity" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden"/>
+        <activity android:name="com.goodbarber.v2.core.common.activities.CustomBrowserActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.sounds.detail.activities.SoundCloudDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:hardwareAccelerated="true" android:name="com.goodbarber.v2.core.common.activities.AdInterstitialActivity" android:screenOrientation="portrait" android:theme="@style/AppThemeTranslucent"/>
+        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" android:exported="false" android:name="com.google.android.gms.ads.AdActivity" android:noHistory="true" android:theme="@android:style/Theme.Translucent"/>
+        <activity android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize|smallestScreenSize|uiMode" android:name="com.swelen.ads.SwelenAdActivity" android:theme="@android:style/Theme.Translucent"/>
+        <activity android:name="com.goodbarber.v2.core.roots.activities.SlateRootBrowsingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.roots.activities.SwipeRootBrowsingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.roots.activities.LittleSwipeRootBrowsingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.roots.activities.OldGridRootBrowsingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.roots.activities.GhostRootBrowsingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.common.activities.HomeRootActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.roots.activities.ScratchRootBrowsingActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.mobfox.sdk.interstitialads.InterstitialActivity"/>
+        <activity android:name="com.smaato.soma.interstitial.InterstitialActivity"/>
+        <activity android:name="com.smaato.soma.ExpandedBannerActivity"/>
+        <activity android:name="com.goodbarber.v2.core.notifications.activities.NotificationActivity" android:noHistory="true" android:screenOrientation="portrait" android:theme="@style/AppThemeTranslucent"/>
+        <activity android:name="com.goodbarber.v2.core.comments.disqus.DisqusCommentsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.common.activities.DeepLinkActivity" android:noHistory="true" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.users.login.activities.LoginOrSignupActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.users.login.activities.TermsDetailClassicActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.common.activities.PictureDetailWithAnimationActivity" android:theme="@style/Transparent"/>
+        <activity android:name="com.goodbarber.v2.core.users.search.activities.UsersSearchActivity" android:screenOrientation="portrait"/>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.facebook.ads.InterstitialAdActivity"/>
+        <activity android:name="com.goodbarber.v2.core.notifications.activities.NotifViewActivity" android:noHistory="true" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.users.login.activities.GBLoginActivity" android:screenOrientation="portrait"/>
+        <service android:name="org.openudid.OpenUDID_service">
+            <intent-filter>
+                <action android:name="org.openudid.GETUDID"/>
+            </intent-filter>
+        </service>
+        <service android:exported="false" android:name="com.goodbarber.v2.core.geofence.GeofenceLoaderService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <service android:exported="false" android:name="com.goodbarber.v2.core.geofence.GeofenceHandlerService"/>
+        <receiver android:enabled="true" android:exported="true" android:name="com.goodbarber.v2.core.geofence.GeofenceBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <activity android:name="com.goodbarber.v2.core.users.profile.activities.ProfilePushsListActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.loyalty.gifts.activities.LoyaltyGiftListActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.loyalty.gifts.activities.LoyaltyGiftDetailActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.loyalty.gifts.activities.LoyaltyHistoricalListGiftsActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.common.activities.NotFoundActivity" android:screenOrientation="portrait"/>
+        <activity android:name="com.goodbarber.v2.core.common.activities.GoneFishingActivity" android:screenOrientation="portrait"/>
+        <service android:exported="true" android:name="com.goodbarber.v2.core.common.music.MusicService" android:stopWithTask="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON"/>
+                <action android:name="android.media.browse.MediaBrowserService"/>
+            </intent-filter>
+        </service>
+        <receiver android:name="android.support.v4.media.session.MediaButtonReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.MEDIA_BUTTON"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:enabled="true" android:exported="false" android:name="com.goodbarber.v2.ReplyNotificationBroadcastReceiver"/>
+        <meta-data android:name="io.fabric.ApiKey" android:value="cf6ebca65bb8ef5b510b937e818fa8b2b7acdc31"/>
+        <activity android:name="com.facebook.CustomTabMainActivity"/>
+        <provider android:authorities="com.actus.plusdebonsplans.FacebookInitProvider" android:exported="false" android:name="com.facebook.internal.FacebookInitProvider"/>
+        <receiver android:enabled="true" android:exported="false" android:name="com.google.android.gms.analytics.AnalyticsReceiver"/>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.analytics.AnalyticsService"/>
+        <service android:enabled="true" android:exported="false" android:name="com.google.android.gms.analytics.AnalyticsJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
+        <activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+        <activity android:configChanges="keyboardHidden|orientation|screenSize" android:name="com.facebook.ads.AudienceNetworkActivity"/>
+        <uses-library android:name="android.test.runner"/>
+        <provider android:authorities="com.actus.plusdebonsplans.crashlyticsinitprovider" android:exported="false" android:initOrder="100" android:name="com.crashlytics.android.CrashlyticsInitProvider"/>
+    </application>
+</manifest>

@@ -45,6 +45,7 @@ def maxmunch(string, dictionary):
                 word = word[1:]
     return tokens
 
+
 def split_underscore(input_string):
     """
     Splits a string or a list of strings into separate words following underscore convention.
@@ -148,6 +149,7 @@ def extract_manifest_info(xml_file):
                 lexon = split_underscore(lexon)
                 lexon = split_camel_case(lexon)
                 lexon = maxmunch(lexon, dictionary)
+                lexon = [word for word in lexon if len(word) > 1]
                 extracted_info.extend(lexon)
 
     return extracted_info
@@ -158,49 +160,26 @@ goodware_dir = 'data/manifests/D0/goodware'
 malware_dir = 'data/manifests/D0/malware'
 
 # Read and process goodware XML manifests
-# TODO: Implement the logic to read and process goodware XML manifests
+goodware_data = []
+for file in os.listdir(goodware_dir):
+    if file.endswith('.xml'):
+        filename = os.path.splitext(file)[0]
+        output_file = f'data/train/D0/goodware/{filename}'
+        if not os.path.exists(output_file):
+            manifest_info = extract_manifest_info(os.path.join(goodware_dir, file))
+            manifest_string = ' '.join(manifest_info)
+            with open(output_file, 'w') as f:
+                f.write(manifest_string)
+
 
 # Read and process malware XML manifests
 malware_data = []
 for file in os.listdir(malware_dir):
     if file.endswith('.xml'):
-        manifest_info = extract_manifest_info(os.path.join(malware_dir, file))
-        malware_data.append(manifest_info)
-
-# Create a DataFrame with the extracted data
-# goodware_df = pd.DataFrame(goodware_data, columns=['text', 'label'])  # Assuming 'text' contains the extracted information
-# goodware_df['label'] = 0  # Assign label 0 for goodware
-
-malware_df = pd.DataFrame(malware_data, columns=['text', 'label'])  # Assuming 'text' contains the extracted information
-malware_df['label'] = 1  # Assign label 1 for malware
-
-# Combine goodware and malware data
-combined_data = pd.concat([goodware_df, malware_df], ignore_index=True)
-
-# # Split the data into training and testing sets
-# train_data, test_data = train_test_split(combined_data, test_size=0.2, random_state=42)
-
-# # Tokenize the text data using BERT tokenizer
-# tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
-# max_length = 128  # Define the maximum sequence length
-
-# def preprocess_text(text):
-#     """
-#     Preprocesses the text data by tokenizing it using BERT tokenizer.
-
-#     Args:
-#         text (str): The text to be preprocessed.
-
-#     Returns:
-#         inputs: The preprocessed input data.
-#     """
-#     inputs = tokenizer(text, padding='max_length', truncation=True, max_length=max_length, return_tensors='pt')
-#     return inputs
-
-# # Apply preprocessing to the text data
-# # train_data['input_ids'] = train_data['text'].apply(preprocess_text)
-# test_data['input_ids'] = test_data['text'].apply(preprocess_text)
-
-# # Save the preprocessed data for training
-# # train_data.to_csv('train_data.csv', index=False)
-# test_data.to_csv('test_data.csv', index=False)
+        filename = os.path.splitext(file)[0]
+        output_file = f'data/train/D0/malware/{filename}'
+        if not os.path.exists(output_file):
+            manifest_info = extract_manifest_info(os.path.join(malware_dir, file))
+            manifest_string = ' '.join(manifest_info)
+            with open(output_file, 'w') as f:
+                f.write(manifest_string)
