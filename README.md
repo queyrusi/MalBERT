@@ -10,6 +10,8 @@ Implements preprocessing and training of [MalBERT](https://ieeexplore.ieee.org/d
 - sklearn 1.4.0
 - pandas 2.1.0
 
+To extract the manifest you will need [axmldec](https://github.com/ytsutano/axmldec?tab=readme-ov-file#32-decoding-androidmanifestxml-in-an-apk-file). Please follow installation instructions for your OS.
+
 ## Setup
 1. Clone the MalBERT repository.
 2. Run the `get_manifests.sh` script to extract manifests.
