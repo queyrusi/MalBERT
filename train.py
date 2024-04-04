@@ -4,12 +4,33 @@ import torch
 from torch.utils.data import Dataset, DataLoader
 from transformers import LongformerTokenizer, LongformerForSequenceClassification, AdamW
 import warnings
+from torch.utils.tensorboard import SummaryWriter
+import argparse
 
 warnings.filterwarnings("ignore")
 
-# --- Environment
+# --- Environment and writer
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
+
+# Create directories for checkpoints and log
+checkpoint_dir = 'checkpoints'
+log_dir = 'logs'
+
+os.makedirs(checkpoint_dir, exist_ok=True)
+os.makedirs(log_dir, exist_ok=True)
+
+# Set the paths to your data directories
+parser = argparse.ArgumentParser()
+parser.add_argument('train_data_dir', type=str,
+ help='Path to the train data directory (should contain 2 subfolders: goodware and malware)')
+args = parser.parse_args()
+
+train_data_dir = args.train_data_dir
+# test_data_dir = args.test_data_dir # TODO
+
+# Initialize tensorboard writer
+writer = SummaryWriter(log_dir=log_dir)
 
 # Set the seed for reproducibility
 random.seed(42)
@@ -56,10 +77,6 @@ class CustomDataset(Dataset):
             'labels': torch.tensor(self.labels[idx])
         }
 
-# Set the paths to your data directories
-train_data_dir = 'data/train/D0'
-# test_data_dir = 'data/test/D0'
-
 # Initialize the tokenizer and model
 tokenizer = LongformerTokenizer.from_pretrained('allenai/longformer-base-4096')
 model = LongformerForSequenceClassification.from_pretrained('allenai/longformer-base-4096', num_labels=2)
@@ -77,7 +94,7 @@ train_dataset, val_dataset = torch.utils.data.random_split(train_dataset, [train
 # Create the data loaders
 train_dataloader = DataLoader(train_dataset, batch_size=4, shuffle=True)
 val_dataloader = DataLoader(val_dataset, batch_size=4, shuffle=False)
-# test_dataloader = DataLoader(test_dataset, batch_size=8, shuffle=False)
+# test_dataloader = DataLoader(test_dataset, batch_size=8, shuffle=False) # TODO
 
 # Set the optimizer and learning rate
 optimizer = AdamW(model.parameters(), lr=1e-5)
@@ -113,8 +130,14 @@ for epoch in range(5):
 
     val_accuracy = val_correct / val_total
     print(f'Epoch {epoch+1}: Val Loss: {val_loss:.4f}, Val Accuracy: {val_accuracy:.4f}')
+    writer.add_scalar('Loss/val', val_loss, epoch)
+    writer.add_scalar('Accuracy/val', val_accuracy, epoch)
 
-# --- Testing
+    # Save the model checkpoint
+    checkpoint_path = os.path.join(checkpoint_dir, f'epoch_{epoch+1}.pt')
+    torch.save(model.state_dict(), checkpoint_path)
+
+# --- Testing TODO
 
 # Evaluate on the test set
 # model.eval()

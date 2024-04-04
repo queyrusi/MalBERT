@@ -6,7 +6,9 @@ Implements preprocessing and training of [MalBERT](https://ieeexplore.ieee.org/d
 ## Prerequisites
 - Python 3.7 or higher
 - Torch 2.0.1
-- Transformers 4.37.0
+- transformers 4.37.0
+- sklearn 1.4.0
+- pandas 2.1.0
 
 ## Setup
 1. Clone the MalBERT repository.
@@ -14,18 +16,20 @@ Implements preprocessing and training of [MalBERT](https://ieeexplore.ieee.org/d
 ```bash
 sh get_manifests.sh "path/to/apk/folder" "path/to/output/folder"
 ```
-Extract them to goodware and malware subfolders.
+Use the above to place all goodware manifests in a folder, and all malware in another.
 
 3. Run the `preprocessing.py` script to preprocess the manifests to txt.
 ```python
 python preprocessing.py "path/to/manifest/folder" "path/to/output/folder"
 ````
+By now there should be two folders, one full of goodware text and the other full of malware text.
 
 ## Training
 Run the `train.py` script to train the MalBERT model (uses Longformer).
 ```python
-python train.py
+python train.py "path/to/training/data"
 ```
+`path/to/training/data` should be a folder containing two subfolders full of text (extension not mandatory).
 
 ## Evaluation
 Test part is commented inside the `train.py` file but it will have its own module.
