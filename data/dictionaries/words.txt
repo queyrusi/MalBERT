@@ -3163,6 +3163,7 @@ exploring
 explosion
 expo
 export
+exported
 exports
 exposed
 exposure
@@ -3979,6 +3980,7 @@ healing
 health
 healthcare
 healthy
+heap
 hear
 heard
 hearing
@@ -4361,6 +4363,7 @@ infrastructure
 ing
 ingredients
 inherited
+init
 initial
 initially
 initiated
@@ -7426,6 +7429,7 @@ rpg
 rpm
 rrp
 rss
+rtl
 rubber
 ruby
 rug
@@ -7586,6 +7590,7 @@ scroll
 scsi
 scuba
 sculpture
+sdk
 sea
 seafood
 seal

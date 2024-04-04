@@ -1,11 +1,10 @@
 """
-This module contains functions for preprocessing XML manifest files.
+This module preprocesses XML manifests to text files.
 
-The module includes functions to extract relevant information from XML files, read and process XML manifests,
-create a DataFrame with the extracted data, split the data into training and testing sets, tokenize the text data using BERT tokenizer,
-and preprocess the text data by tokenizing it using BERT tokenizer.
+The module includes functions to extract relevant information from XML files, read and process XML manifests
+from a directory, and save the extracted information to text files.
 
-The preprocessed data is then saved as CSV files for training.
+Usage: python preprocessing.py <manifests_dir> <output_dir>
 """
 import os
 import pandas as pd
@@ -14,6 +13,7 @@ from transformers import BertTokenizer
 import torch
 import re
 from xml.dom import minidom
+import argparse
 import xml.etree.ElementTree as ET
 
 
@@ -155,31 +155,25 @@ def extract_manifest_info(xml_file):
     return extracted_info
 
 
-# Define the paths to the directories containing XML manifests
-goodware_dir = 'data/manifests/D0/goodware'
-malware_dir = 'data/manifests/D0/malware'
+def main(manifests_dir, output_dir):
+    # Read and process goodware XML manifests
+    for file in os.listdir(manifests_dir):
+        if file.endswith('.xml'):
+            filename = os.path.splitext(file)[0]
+            output_file = os.path.join(output_dir, filename)
+            if not os.path.exists(output_file):
+                manifest_info = extract_manifest_info(os.path.join(manifests_dir, file))
+                manifest_string = ' '.join(manifest_info)
+                with open(output_file, 'w') as f:
+                    f.write(manifest_string)
 
-# Read and process goodware XML manifests
-goodware_data = []
-for file in os.listdir(goodware_dir):
-    if file.endswith('.xml'):
-        filename = os.path.splitext(file)[0]
-        output_file = f'data/train/D0/goodware/{filename}'
-        if not os.path.exists(output_file):
-            manifest_info = extract_manifest_info(os.path.join(goodware_dir, file))
-            manifest_string = ' '.join(manifest_info)
-            with open(output_file, 'w') as f:
-                f.write(manifest_string)
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description='Process XML manifests.')
+    parser.add_argument('manifests_dir', type=str, help='Path to the directory containing XML manifests')
+    parser.add_argument('output_dir', type=str, help='Path to the output directory')
+    args = parser.parse_args()
 
+    manifests_dir = args.manifests_dir
+    output_dir = args.output_dir
 
-# Read and process malware XML manifests
-malware_data = []
-for file in os.listdir(malware_dir):
-    if file.endswith('.xml'):
-        filename = os.path.splitext(file)[0]
-        output_file = f'data/train/D0/malware/{filename}'
-        if not os.path.exists(output_file):
-            manifest_info = extract_manifest_info(os.path.join(malware_dir, file))
-            manifest_string = ' '.join(manifest_info)
-            with open(output_file, 'w') as f:
-                f.write(manifest_string)
+    main(manifests_dir, output_dir)
