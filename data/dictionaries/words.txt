@@ -26,6 +26,8 @@ academic
 academics
 academy
 acc
+accelerate
+accelerated
 accent
 accept
 acceptable

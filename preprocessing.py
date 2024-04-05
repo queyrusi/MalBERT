@@ -108,10 +108,16 @@ def extract_manifest_info(xml_file, dictionary_path):
 
     # --- Cleaning rules
 
+    # Function to remove namespace prefix:
+    # this allows '{http://schemas.android.com/apk/res/android}versionCode': '192' to become versionCode="192"
+    # since there is over-redundance of 'android'
+    def remove_namespace_prefix(attribute_name):
+        return attribute_name.split("}")[1] if "}" in attribute_name else attribute_name
+
     # Extract text and attributes
     for element in root.iter():
 
-        # Extract text
+        # Extract text- not sure this is useful
         if element.text:
             if element.text.strip():
                 lexon = element.text.strip()
@@ -127,6 +133,8 @@ def extract_manifest_info(xml_file, dictionary_path):
                 if attr_name.isdigit():
                     continue
 
+                attr_name = remove_namespace_prefix(attr_name)
+
                 # Replace all strange characters with _
                 special_characters = ['@', ':', '/', '.', '|', '{', '}']
                 for special_character in special_characters:
@@ -140,6 +148,8 @@ def extract_manifest_info(xml_file, dictionary_path):
 
                 if attr_value.isdigit():
                     continue
+                
+                attr_value = remove_namespace_prefix(attr_value)
 
                 # Replace all strange characters with _
                 special_characters = ['@', ':', '/', '.', '|', '{', '}']
