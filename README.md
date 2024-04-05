@@ -29,7 +29,7 @@ Use the above to place all goodware manifests in a folder, and all malware in an
 
 3. Run the `preprocessing.py` script to preprocess the manifests to txt.
 ```python
-python preprocessing.py "path/to/manifest/folder" "path/to/output/folder" data/dictionaries/words.txt
+python3 preprocessing.py "path/to/manifest/folder" "path/to/output/folder" data/dictionaries/words.txt
 ````
 By now there should be two folders, one full of goodware text and the other full of malware text.
 
