@@ -159,14 +159,17 @@ def extract_manifest_info(xml_file, dictionary_path):
 def main(manifests_dir, output_dir, dictionary_path):
     # Read and process goodware XML manifests
     for file in tqdm(os.listdir(manifests_dir), desc="tokenizing manifests"):
-        if file.endswith('.xml'):
-            filename = os.path.splitext(file)[0]
-            output_file = os.path.join(output_dir, filename)
-            if not os.path.exists(output_file):
-                manifest_info = extract_manifest_info(os.path.join(manifests_dir, file), dictionary_path)
-                manifest_string = ' '.join(manifest_info)
-                with open(output_file, 'w') as f:
-                    f.write(manifest_string)
+        try:
+            if file.endswith('.xml'):
+                filename = os.path.splitext(file)[0]
+                output_file = os.path.join(output_dir, filename)
+                if not os.path.exists(output_file):
+                    manifest_info = extract_manifest_info(os.path.join(manifests_dir, file), dictionary_path)
+                    manifest_string = ' '.join(manifest_info)
+                    with open(output_file, 'w') as f:
+                        f.write(manifest_string)
+        except Exception as e:
+            print(f"Error processing file {file}: {str(e)}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process XML manifests.')
