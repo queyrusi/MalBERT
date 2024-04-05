@@ -14,6 +14,7 @@ import torch
 import re
 from xml.dom import minidom
 import argparse
+from tqdm import tqdm
 import xml.etree.ElementTree as ET
 
 
@@ -83,7 +84,7 @@ def split_camel_case(input_string):
     return [word.lower() for word in words]
 
 
-def extract_manifest_info(xml_file):
+def extract_manifest_info(xml_file, dictionary_path):
     """
     Extracts relevant information from an XML file.
 
@@ -101,7 +102,7 @@ def extract_manifest_info(xml_file):
 
     # --- Get dictionary of words
 
-    dictionary_file = 'data/dictionaries/words.txt'
+    dictionary_file = dictionary_path
     with open(dictionary_file, 'r') as f:
         dictionary = [line.strip() for line in f]
 
@@ -155,14 +156,14 @@ def extract_manifest_info(xml_file):
     return extracted_info
 
 
-def main(manifests_dir, output_dir):
+def main(manifests_dir, output_dir, dictionary_path):
     # Read and process goodware XML manifests
-    for file in os.listdir(manifests_dir):
+    for file in tqdm(os.listdir(manifests_dir), desc="tokenizing manifests"):
         if file.endswith('.xml'):
             filename = os.path.splitext(file)[0]
             output_file = os.path.join(output_dir, filename)
             if not os.path.exists(output_file):
-                manifest_info = extract_manifest_info(os.path.join(manifests_dir, file))
+                manifest_info = extract_manifest_info(os.path.join(manifests_dir, file), dictionary_path)
                 manifest_string = ' '.join(manifest_info)
                 with open(output_file, 'w') as f:
                     f.write(manifest_string)
@@ -171,9 +172,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Process XML manifests.')
     parser.add_argument('manifests_dir', type=str, help='Path to the directory containing XML manifests')
     parser.add_argument('output_dir', type=str, help='Path to the output directory')
+    parser.add_argument('dictionary_path', type=str, help='Path to the dictionary file')
     args = parser.parse_args()
 
     manifests_dir = args.manifests_dir
     output_dir = args.output_dir
+    dictionary_path = args.dictionary_path
 
-    main(manifests_dir, output_dir)
+    main(manifests_dir, output_dir, dictionary_path)

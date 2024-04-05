@@ -7237,6 +7237,8 @@ residents
 resist
 resistance
 resistant
+resize
+resizeable
 resolution
 resolutions
 resolve

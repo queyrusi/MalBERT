@@ -12,6 +12,13 @@ Implements preprocessing and training of [MalBERT](https://ieeexplore.ieee.org/d
 
 To extract the manifest you will need [axmldec](https://github.com/ytsutano/axmldec?tab=readme-ov-file#32-decoding-androidmanifestxml-in-an-apk-file). Please follow installation instructions for your OS.
 
+When the `axmldec` is built, please don't forget to put it on your path so `get_manifests.sh` can call it.
+```bash
+echo 'export PATH="/path/to/directory/containing/axmldec:$PATH"' >> ~/.bashrc
+source ~/.bashrc
+```
+
+
 ## Setup
 1. Clone the MalBERT repository.
 2. Run the `get_manifests.sh` script to extract manifests.
@@ -22,7 +29,7 @@ Use the above to place all goodware manifests in a folder, and all malware in an
 
 3. Run the `preprocessing.py` script to preprocess the manifests to txt.
 ```python
-python preprocessing.py "path/to/manifest/folder" "path/to/output/folder"
+python preprocessing.py "path/to/manifest/folder" "path/to/output/folder" data/dictionaries/words.txt
 ````
 By now there should be two folders, one full of goodware text and the other full of malware text.
 
