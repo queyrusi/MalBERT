@@ -36,13 +36,13 @@ By now there should be two folders, one full of goodware text and the other full
 ## Training
 Run the `train.py` script to train the MalBERT model (uses Longformer).
 ```python
-python train.py "path/to/training/data"
+python3 train.py "path/to/training/data"
 ```
 `path/to/training/data` should be a folder containing two subfolders full of text (extension not mandatory).
 
 ## Evaluation
 ```bash
-python inference.py "path/to/model.pt" "path/to/test/data" --batch_size 32 --logdir logs/inferences
+python3 inference.py "path/to/model.pt" "path/to/test/data" --batch_size 32 --logdir logs/inferences
 ```
 Same as training, `path/to/test/data` should be a folder with two subfolders full of text.
 
