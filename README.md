@@ -41,7 +41,11 @@ python train.py "path/to/training/data"
 `path/to/training/data` should be a folder containing two subfolders full of text (extension not mandatory).
 
 ## Evaluation
-Test part is commented inside the `train.py` file but it will have its own module.
+```bash
+python inference.py "path/to/model.pt" "path/to/test/data" --batch_size 32 --logdir logs/inferences
+```
+Same as training, `path/to/test/data` should be a folder with two subfolders full of text.
+
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for more details.

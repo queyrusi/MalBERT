@@ -7,9 +7,10 @@ import warnings
 from torch.utils.tensorboard import SummaryWriter
 import argparse
 
-warnings.filterwarnings("ignore")
 
 # --- Environment and writer
+
+warnings.filterwarnings("ignore")
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -36,7 +37,7 @@ writer = SummaryWriter(log_dir=log_dir)
 random.seed(42)
 torch.manual_seed(42)
 
-# --- Data Preparation
+# --- Data and model preparation
 
 label_correspondence = {"goodware": 0, "malware": 1}
 

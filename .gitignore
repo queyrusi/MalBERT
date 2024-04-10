@@ -170,3 +170,5 @@ data/.DS_Store
 data/apks/.DS_Store
 .vscode/launch.json
 data/apks/D0/.DS_Store
+.DS_Store
+checkpoints/epoch_0.pt
