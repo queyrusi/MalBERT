@@ -137,24 +137,3 @@ for epoch in range(5):
     # Save the model checkpoint
     checkpoint_path = os.path.join(checkpoint_dir, f'epoch_{epoch+1}.pt')
     torch.save(model.state_dict(), checkpoint_path)
-
-# --- Testing TODO
-
-# Evaluate on the test set
-# model.eval()
-# test_loss = 0
-# test_correct = 0
-# test_total = 0
-# with torch.no_grad():
-#     for batch in test_dataloader:
-#         input_ids = batch['input_ids'].to(device)
-#         attention_mask = batch['attention_mask'].to(device)
-#         labels = batch['labels'].to(device)
-#         outputs = model(input_ids=input_ids, attention_mask=attention_mask, labels=labels)
-#         test_loss += outputs.loss.item()
-#         _, predicted = torch.max(outputs.logits, dim=1)
-#         test_total += labels.size(0)
-#         test_correct += (predicted == labels).sum().item()
-
-# test_accuracy = test_correct / test_total
-# print(f'Test Loss: {test_loss:.4f}, Test Accuracy: {test_accuracy:.4f}')

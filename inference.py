@@ -113,9 +113,8 @@ class CustomDataset(Dataset):
         }
 
 # Load the test data
-test_data_path = 'data/test/D0'
 tokenizer = LongformerTokenizer.from_pretrained('allenai/longformer-base-4096')
-test_dataset = CustomDataset(test_data_path, tokenizer)
+test_dataset = CustomDataset(args.test_data_path, tokenizer)
 test_loader = DataLoader(test_dataset, batch_size=2)
 
 # Load the trained model
